@@ -1,4 +1,6 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -9,8 +11,7 @@ public class TesteHtml {
 
     //Variáveis Globais
     private WebDriver driver;
-
-
+    private String url;
 
     //Executado antes de cada teste em todos os testes
     // Pré-condição
@@ -18,19 +19,34 @@ public class TesteHtml {
     public void before()
     {
         String caminhoDriver = "C:\\driver\\chromedriver.exe"; //Caminho do driver
-        String url = System.getProperty("user.dir") + "/src/paginas/olaMundo.html"; //Url da página
+        url = System.getProperty("user.dir") + "/src/paginas/olaMundo.html"; //Url da página
         System.setProperty("webdriver.chrome.driver", caminhoDriver);//instancia do driver
-        driver = new ChromeDriver(); //instancia do navegador
+        driver = new ChromeDriver(); //instancia do navegador, nesse caso estamos usando o Chrome
+
     }
 
     //Testes
     //Executa na setinha verde ao lado
     @Test
-    public void testeValoresDiferentes()
+    public void testeCliqueGoogle()
     {
-        String nome = "Aline";
-        System.out.println("Teste valores diferentes");
-        Assert.assertNotEquals(nome, "Aline Zenin");
+        //Se for digitar um link, coloque http antes
+        driver.get("http://google.com.br"); //Entra na página passada pelo url
+        WebElement desenho = driver.findElement(By.id("hplogo")); //Pega algum elemento pelo Id
+        desenho.click();    //Clica no desenho acima
+
+    }
+
+    //Testes
+    //Executa na setinha verde ao lado
+    @Test
+    public void testeBuscaGoogle()
+    {
+        //Se for digitar um link, coloque http antes
+        driver.get("http://google.com.br"); //Entra na página passada pelo url
+        WebElement busca = driver.findElement(By.name("q")); //Pega o campo de busca pelo nome
+        busca.sendKeys("Teste de software");   //Digita os dados para o elemento de busca
+
     }
 
     //Executado depois de cada teste
@@ -38,6 +54,6 @@ public class TesteHtml {
     @AfterMethod
     public void after()
     {
-        System.out.println("Essa mensagem aparecerá depois de cada teste");
+        //driver.quit();
     }
 }
