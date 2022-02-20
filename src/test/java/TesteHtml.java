@@ -40,12 +40,16 @@ public class TesteHtml {
     //Testes
     //Executa na setinha verde ao lado
     @Test
-    public void testeBuscaGoogle()
-    {
+    public void testeBuscaGoogle() throws InterruptedException {
         //Se for digitar um link, coloque http antes
         driver.get("http://google.com.br"); //Entra na página passada pelo url
         WebElement busca = driver.findElement(By.name("q")); //Pega o campo de busca pelo nome
         busca.sendKeys("Teste de software");   //Digita os dados para o elemento de busca
+        Thread.sleep(1500);
+        WebElement resultadoLista = driver.findElement(By.className("wM6W7d"));
+        resultadoLista.click();
+        WebElement cwi = driver.findElement(By.partialLinkText("https://cwi.com.br"));
+        cwi.click();
 
     }
 
